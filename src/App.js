@@ -1,5 +1,13 @@
-const App = () => {
-  return <h1>Hello World !</h1>
-}
+import { Routes, Route } from 'react-router-dom';
 
-export default App
+import Home from 'routes/home/Home';
+
+const App = () => {
+  return (
+    <Routes>
+      <Route path='/' index element={<Home />} />
+    </Routes>
+  );
+};
+
+export default App;
