@@ -72,10 +72,10 @@ const Authentication = () => {
     console.log('onSubmitHandler', e);
   };
 
-  let test = {
-    email: 'test',
-    password: '123456'
-  }
+  // let test = {
+  //   email: 'a@a.com',
+  //   password: '123456'
+  // }
 
   return (
     <div className='authentication-container'>
@@ -84,7 +84,7 @@ const Authentication = () => {
         buttons={buttons}
         headerData={headerData}
         onSubmit={onSubmitHandler}
-        extFormData = {test}
+        // extFormData = {test}
       />
     </div>
   );

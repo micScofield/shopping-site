@@ -12,20 +12,15 @@ function Form(props) {
   const [actionForm, setActionForm] = useState(formFields);
   const [isFormValid, setIsFormValid] = useState(false)
 
-    let formArray = []
-    let extFormFields = []
-
   useEffect(() => {
-    // destructure extFormData and try to fill in the ""values"" for form fields here.
-    /*
-    { email: 'test', password: '123456' }
-    */
+    let extFormFields = {}
     extFormFields = JSON.parse(JSON.stringify(actionForm))
-
-    for (let i in extFormData) {
-        extFormArray.find(el => el.id === i).config.value = extFormData[i]
+    if (extFormData && Object.keys(extFormData).length !== 0) {
+        for (let i in extFormData) {
+            extFormFields[i].value = extFormData[i]
+        }
+        setActionForm(extFormFields)
     }
-
 
   }, [extFormData]);
 
@@ -48,13 +43,12 @@ function Form(props) {
       isFormValid = updatedForm[key].valid && isFormValid;
     }
 
-    console.log(updatedForm)
-
     setActionForm(updatedForm)
     setIsFormValid(isFormValid)
   };
 
   // we receive form as an object, converting it to an array = 
+  let formArray = []
   for (let i in actionForm) {
       const formElement = {
           id: i,
@@ -92,7 +86,6 @@ function Form(props) {
       {formArray && (
         <form onSubmit={onSubmit}>
           {formArray.map((field) => {
-            console.log(field)
             const {
                 id,
                 config : { touched, type, value, valid, placeholder, validation, htmlType}
