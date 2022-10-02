@@ -1,12 +1,19 @@
+import { Fragment } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Home from 'routes/home/Home';
+import Navigation from 'routes/navigation/Navigation';
+import Authentication from 'routes/authentication/authentication';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path='/' index element={<Home />} />
-    </Routes>
+    <Fragment>
+      <Navigation />
+      <Routes>
+        <Route path='/signin' element={<Authentication />} />
+        <Route path='/' element={<Home />} />
+      </Routes>
+    </Fragment>
   );
 };
 

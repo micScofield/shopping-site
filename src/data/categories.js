@@ -28,5 +28,5 @@ export const categories = [
       title: 'mens',
       imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
       subText: 'Shop Now'
-    },
+    }
   ];
