@@ -4,7 +4,14 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 
 function NavTab({ navTab }) {
-  const { route, text } = navTab;
+  const { route, text, onClick } = navTab;
+
+  if (text === 'Sign Out') return (
+    <Link className='nav-link' onClick={onClick}>
+      {text}
+    </Link>
+  );
+
   return (
     <Link className='nav-link' to={`${route}`}>
       {text}

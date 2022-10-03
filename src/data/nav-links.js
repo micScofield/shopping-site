@@ -15,6 +15,7 @@ export const links = [
     {
         text: 'Sign Out',
         route: '/signout',
-        show: true
+        show: true,
+        onClick: () => {}
     }
 ]
