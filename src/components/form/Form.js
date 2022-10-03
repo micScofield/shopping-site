@@ -7,7 +7,7 @@ import { updateState } from 'utils/javascript/updateState';
 import { checkValidity } from 'utils/javascript/validity';
 
 function Form(props) {
-  const { formFields, buttons, headerData, onSubmit, extFormData = {} } = props;
+  const { formFields, buttons, headerData, onSubmit, extFormData = {}, buttonTypeClasses } = props;
 
   const [actionForm, setActionForm] = useState(formFields);
   const [isFormValid, setIsFormValid] = useState(false)
@@ -22,7 +22,7 @@ function Form(props) {
         setActionForm(extFormFields)
     }
 
-  }, [extFormData]);
+  }, [extFormData, actionForm]);
 
   const onChange = (e, inputIdentifier) => {
     e.preventDefault();
@@ -110,10 +110,10 @@ function Form(props) {
           {buttons && (
             <div className='buttons-container'>
               {buttons.map((button) => {
-                const { type, text, onClick } = button;
+                const { type, text, onClick, buttonType } = button;
                 return (
                   <Fragment key={text}>
-                    <Button type={type} onClick={onClick} disabled={!isFormValid}>
+                    <Button type={type} onClick={onClick} disabled={!isFormValid} buttonType={buttonType} buttonTypeClasses={buttonTypeClasses}>
                       {text}
                     </Button>
                   </Fragment>

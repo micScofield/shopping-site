@@ -82,6 +82,7 @@ const Authentication = () => {
       <Form
         formFields={formFields}
         buttons={buttons}
+        buttonTypeClasses={BUTTON_TYPE_CLASSES}
         headerData={headerData}
         onSubmit={onSubmitHandler}
         // extFormData = {test}

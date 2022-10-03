@@ -1,20 +1,30 @@
 import React from 'react';
 
-import { BUTTON_TYPE_CLASSES } from 'common/constants';
+import PropTypes from 'prop-types'
 
 import 'components/button/button.styles.scss';
 
+const availableButtonTypes = ['google-sign-in', 'inverted']
+
 function Button(props) {
-  const { type, onClick, buttonType } = props;
+  const { type, onClick, buttonType, buttonTypeClasses, children } = props;
   return (
     <button
-      className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}
+      className={`button-container ${buttonTypeClasses[buttonType]}`}
       type={type}
       onClick={onClick}
     >
-      {props.children}
+      {children}
     </button>
   );
 }
 
 export default Button;
+
+Button.propTypes = {
+  type: PropTypes.string,
+  buttonType: PropTypes.oneOf([...availableButtonTypes]),
+  onClick: PropTypes.func,
+  buttonTypeClasses: PropTypes.object,
+  children: PropTypes.string.isRequired
+}
