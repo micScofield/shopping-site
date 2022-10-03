@@ -1,5 +1,6 @@
 import Button from 'components/button/Button';
 import React, { Fragment, useEffect, useState } from 'react';
+import PropTypes from 'prop-types'
 
 import FormInput from './FormInput';
 import 'components/form/form.styles.scss';
@@ -27,18 +28,19 @@ function Form(props) {
   const onChange = (e, inputIdentifier) => {
     e.preventDefault();
 
-    const updatedForm = updateState(formFields, {
-      [inputIdentifier]: updateState(formFields[inputIdentifier], {
+    const updatedForm = updateState(actionForm, {
+      [inputIdentifier]: updateState(actionForm[inputIdentifier], {
         value: e.target.value,
         touched: true,
         valid: checkValidity(
           e.target.value,
-          formFields[inputIdentifier].validation
+          actionForm[inputIdentifier].validation
         ),
       }),
     });
 
     let isFormValid = true;
+    console.log({updatedForm})
     for (let key in updatedForm) {
       isFormValid = updatedForm[key].valid && isFormValid;
     }
@@ -128,3 +130,13 @@ function Form(props) {
 }
 
 export default Form;
+
+// const { formFields, buttons, headerData, onSubmit, extFormData = {}, buttonTypeClasses } = props;
+
+Form.propTypes = {
+  formFields: PropTypes.arrayOf(PropTypes.object),
+  buttons: PropTypes.arrayOf(PropTypes.object),
+  headerData: PropTypes.arrayOf(PropTypes.object),
+  onSubmit: PropTypes.func,
+  buttonTypeClasses: PropTypes.object
+}

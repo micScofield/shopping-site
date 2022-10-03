@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types'
 import 'components/form/form-input.styles.scss';
 
 function FormInput({
@@ -15,7 +16,7 @@ function FormInput({
   return (
     <div className='group'>
       <input
-        type={type}
+        type={type ? type : 'text'}
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e, id)}
@@ -27,3 +28,12 @@ function FormInput({
 }
 
 export default FormInput;
+
+FormInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  invalid: PropTypes.bool,
+  touched: PropTypes.bool,
+  type: PropTypes.oneOf(['email', 'password', 'search', 'text', 'tel', 'url', 'number', 'range', 'datetime-local', 'month', 'time', 'week', 'date', 'color']),
+  label: PropTypes.string,
+  placeholder: PropTypes.string
+};
