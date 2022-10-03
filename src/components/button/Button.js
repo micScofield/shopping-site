@@ -5,10 +5,10 @@ import PropTypes from 'prop-types'
 import 'components/button/button.styles.scss';
 
 function Button(props) {
-  const { type, onClick, buttonType, children } = props;
+  const { type, onClick, secondaryButtonClass, children } = props;
   return (
     <button
-      className={`button-container ${buttonType ? buttonType : ''}`}
+      className={`button-container ${secondaryButtonClass ? secondaryButtonClass : ''}`}
       type={type}
       onClick={onClick}
     >

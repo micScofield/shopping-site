@@ -10,7 +10,7 @@ const App = () => {
     <Fragment>
       <Navigation />
       <Routes>
-        <Route path='/signin' element={<Authentication />} />
+        <Route path='/auth' element={<Authentication />} />
         <Route path='/' element={<Home />} />
       </Routes>
     </Fragment>

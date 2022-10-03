@@ -23,7 +23,7 @@ function NavigationBar({ Logo, links }) {
                   <NavTab navTab={link} />
                 </Fragment>
               );
-            }
+            } else return null
           })}
       </div>
     </div>

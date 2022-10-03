@@ -1,8 +1,4 @@
 import { BUTTON_TYPE_CLASSES } from 'common/constants';
-import {
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
-} from 'utils/firebase/firebase.utils';
 export let signInFormHeaderData = [
   {
     type: 'h2',
@@ -51,11 +47,7 @@ export let signInFormButtons = [
   {
     type: 'button',
     text: 'Sign In With Google',
-    buttonType: BUTTON_TYPE_CLASSES.google,
-    onClick: async (e) => {
-      console.log('signInWithGooglePopup handler');
-      const { user } = await signInWithGooglePopup();
-      await createUserDocumentFromAuth(user);
-    },
+    secondaryButtonClass: BUTTON_TYPE_CLASSES.google,
+    onClick: (e) => {e.preventDefault()}, // to be set inside Authentication route component
   },
 ];

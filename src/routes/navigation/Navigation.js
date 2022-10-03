@@ -19,8 +19,6 @@ function Navigation() {
       return { ...link, id: v4()};
     });
 
-  // set final links if they are confitional
-
   return <NavigationBar Logo={Logo} links={formattedLinks} />;
 }
 

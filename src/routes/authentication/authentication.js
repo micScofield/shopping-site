@@ -7,6 +7,7 @@ import {
   signInAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
   createAuthUserWithEmailAndPassword,
+  signInWithGooglePopup
 } from 'utils/firebase/firebase.utils';
 
 import {
@@ -23,6 +24,18 @@ import { UserContext } from 'contexts/user.context';
 
 const Authentication = () => {
   const { setCurrentUser } = useContext(UserContext);
+
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup();
+    await createUserDocumentFromAuth(user);
+    setCurrentUser(user)
+  }
+
+  for (let i in signInFormButtons) {
+    if (signInFormButtons[i].secondaryButtonClass === BUTTON_TYPE_CLASSES.google) {
+      signInFormButtons[i].onClick = signInWithGoogle
+    }
+  }
 
   const onSignInSubmitHandler = async (e, payload, resetFormFields) => {
     e.preventDefault();
