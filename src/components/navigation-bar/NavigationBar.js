@@ -17,11 +17,13 @@ function NavigationBar({ Logo, links }) {
       <div className='nav-links-container'>
         {links.length !== 0 &&
           links.map((link) => {
-            return (
-              <Fragment key={link.id}>
-                <NavTab navTab={link} />
-              </Fragment>
-            );
+            if (link.show) {
+              return (
+                <Fragment key={link.id}>
+                  <NavTab navTab={link} />
+                </Fragment>
+              );
+            }
           })}
       </div>
     </div>

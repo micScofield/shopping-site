@@ -1,7 +1,8 @@
 const { createContext, useState } = require("react");
 
 export const UserContext = createContext({
-    isAuthenticated: false
+    currentUser: null,
+    setCurrentUser: () => null
 })
 
 export const UserProvider = ({children}) => {

@@ -1,5 +1,6 @@
-import Form from 'components/form/Form';
+import { useContext } from 'react';
 
+import Form from 'components/form/Form';
 import './authentication.styles.scss';
 import { BUTTON_TYPE_CLASSES } from 'common/constants';
 import {
@@ -8,20 +9,31 @@ import {
   createAuthUserWithEmailAndPassword,
 } from 'utils/firebase/firebase.utils';
 
-import { signInFormButtons, signInFormHeaderData, signInFormFields } from 'routes/authentication/formInfo/signIn'
-import { signUpFormButtons, signUpFormFields, signUpFormHeaderData } from 'routes/authentication/formInfo/signUp'
+import {
+  signInFormButtons,
+  signInFormHeaderData,
+  signInFormFields,
+} from 'routes/authentication/formInfo/signIn';
+import {
+  signUpFormButtons,
+  signUpFormFields,
+  signUpFormHeaderData,
+} from 'routes/authentication/formInfo/signUp';
+import { UserContext } from 'contexts/user.context';
 
 const Authentication = () => {
+  const { setCurrentUser } = useContext(UserContext);
+
   const onSignInSubmitHandler = async (e, payload, resetFormFields) => {
     e.preventDefault();
     console.log('onSubmitHandler', payload, resetFormFields);
     const { email, password } = payload;
     try {
-      await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const { user } = await signInAuthUserWithEmailAndPassword(email, password);
       // resetFormFields();
+
+      // set the user in context
+      setCurrentUser(user)
     } catch (error) {
       console.log(error.code.split('/')[1]);
     }
@@ -46,6 +58,9 @@ const Authentication = () => {
 
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
+
+      // set the user in context
+      setCurrentUser(user)
     } catch (error) {
       console.log(error.code.split('/')[1]);
     }
