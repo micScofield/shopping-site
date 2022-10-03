@@ -2,74 +2,53 @@ import Form from 'components/form/Form';
 
 import './authentication.styles.scss';
 import { BUTTON_TYPE_CLASSES } from 'common/constants';
+import {
+  signInAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+  createAuthUserWithEmailAndPassword,
+} from 'utils/firebase/firebase.utils';
 
-/*
-1. State Object containing form data
-reset form method
-2. sign in with google ? 
-3. on submit handler (calls sign in with email and password handler)
-*. on input field change, sets form data
-*/
+import { signInFormButtons, signInFormHeaderData, signInFormFields } from 'routes/authentication/formInfo/signIn'
+import { signUpFormButtons, signUpFormFields, signUpFormHeaderData } from 'routes/authentication/formInfo/signUp'
 
 const Authentication = () => {
-  let headerData = [
-    {
-      type: 'h2',
-      text: 'Already have an account?',
-    },
-    {
-      type: 'span',
-      text: 'Sign in with your email and password',
-    },
-  ];
-
-  let formFields = {
-    email: {
-      type: 'email',
-      htmlType: 'input',
-      placeholder: 'Email',
-      value: '',
-      validation: {
-        required: true,
-        isEmail: true,
-      },
-      label: 'Email',
-      valid: false,
-      touched: false
-    },
-    password: {
-      type: 'password',
-      htmlType: 'input',
-      placeholder: 'Password',
-      validation: {
-        required: true,
-        minLength: 6,
-      },
-      value: '',
-      label: 'Password',
-      valid: false,
-      touched: false
-    },
+  const onSignInSubmitHandler = async (e, payload, resetFormFields) => {
+    e.preventDefault();
+    console.log('onSubmitHandler', payload, resetFormFields);
+    const { email, password } = payload;
+    try {
+      await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      // resetFormFields();
+    } catch (error) {
+      console.log(error.code.split('/')[1]);
+    }
   };
 
-  let buttons = [
-    {
-      type: 'submit',
-      text: 'Sign In',
-    },
-    {
-      type: 'button',
-      text: 'Sign In With Google',
-      buttonType: BUTTON_TYPE_CLASSES.google,
-      onClick: (e) => {
-        console.log('button clicked');
-      },
-    },
-  ];
-
-  const onSubmitHandler = (e) => {
+  const onSignUpSubmitHandler = async (e, payload, resetFormFields) => {
     e.preventDefault();
-    console.log('onSubmitHandler', e);
+    console.log('onSignUpSubmitHandler', payload);
+
+    const { email, password, displayName, confirmPassword } = payload;
+
+    if (password !== confirmPassword) {
+      console.log("Passwords don't match");
+      return;
+    }
+
+    try {
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserDocumentFromAuth(user, { displayName });
+      resetFormFields();
+    } catch (error) {
+      console.log(error.code.split('/')[1]);
+    }
   };
 
   // let test = {
@@ -80,11 +59,20 @@ const Authentication = () => {
   return (
     <div className='authentication-container'>
       <Form
-        formFields={formFields}
-        buttons={buttons}
+        formFields={signInFormFields}
+        buttons={signInFormButtons}
         buttonTypeClasses={BUTTON_TYPE_CLASSES}
-        headerData={headerData}
-        onSubmit={onSubmitHandler}
+        headerData={signInFormHeaderData}
+        onSubmit={onSignInSubmitHandler}
+        // extFormData = {test}
+      />
+
+      <Form
+        formFields={signUpFormFields}
+        buttons={signUpFormButtons}
+        buttonTypeClasses={BUTTON_TYPE_CLASSES}
+        headerData={signUpFormHeaderData}
+        onSubmit={onSignUpSubmitHandler}
         // extFormData = {test}
       />
     </div>

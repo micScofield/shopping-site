@@ -1,28 +1,38 @@
 import Button from 'components/button/Button';
 import React, { Fragment, useEffect, useState } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import FormInput from './FormInput';
 import 'components/form/form.styles.scss';
 import { updateState } from 'utils/javascript/updateState';
 import { checkValidity } from 'utils/javascript/validity';
 
+/*
+Idea of extFormData is to enable the feature where we can set form data explicitly. Thus we require a useEffect for it.
+*/
+
 function Form(props) {
-  const { formFields, buttons, headerData, onSubmit, extFormData = {}, buttonTypeClasses } = props;
+  const {
+    formFields,
+    buttons,
+    headerData,
+    onSubmit,
+    extFormData = {},
+    buttonTypeClasses,
+  } = props;
 
   const [actionForm, setActionForm] = useState(formFields);
-  const [isFormValid, setIsFormValid] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    let extFormFields = {}
-    extFormFields = JSON.parse(JSON.stringify(actionForm))
+    let extFormFields = {};
+    extFormFields = JSON.parse(JSON.stringify(actionForm));
     if (extFormData && Object.keys(extFormData).length !== 0) {
-        for (let i in extFormData) {
-            extFormFields[i].value = extFormData[i]
-        }
-        setActionForm(extFormFields)
+      for (let i in extFormData) {
+        extFormFields[i].value = extFormData[i];
+      }
+      setActionForm(extFormFields);
     }
-
   }, [extFormData, actionForm]);
 
   const onChange = (e, inputIdentifier) => {
@@ -40,23 +50,43 @@ function Form(props) {
     });
 
     let isFormValid = true;
-    console.log({updatedForm})
+    console.log({ updatedForm });
     for (let key in updatedForm) {
       isFormValid = updatedForm[key].valid && isFormValid;
     }
 
-    setActionForm(updatedForm)
-    setIsFormValid(isFormValid)
+    setActionForm(updatedForm);
+    setIsFormValid(isFormValid);
   };
 
-  // we receive form as an object, converting it to an array = 
-  let formArray = []
+  const resetFormFields = () => {
+    let resetForm = JSON.parse(JSON.stringify(actionForm))
+    for (let i in resetForm) {
+      resetForm[i].value = ''
+    }
+
+    setActionForm(resetForm)
+  }
+
+  // we receive form as an object, converting it to an array =
+  let formArray = [];
   for (let i in actionForm) {
-      const formElement = {
-          id: i,
-          config: actionForm[i]
-      }
-      formArray.push(formElement)
+    const formElement = {
+      id: i,
+      config: actionForm[i],
+    };
+    formArray.push(formElement);
+  }
+
+  // customising on submit handler from the one we receive as prop
+  const onSubmitHandler = (e, resetFormFields) => {
+    let payload = {}
+    for (let i in actionForm) {
+      payload[i] = actionForm[i].value
+    }
+
+    // call the handler provided to this form as prop
+    onSubmit(e, payload, resetFormFields)
   }
 
   return (
@@ -86,11 +116,19 @@ function Form(props) {
           }
         })}
       {formArray && (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={e => onSubmitHandler(e, resetFormFields)}>
           {formArray.map((field) => {
             const {
-                id,
-                config : { touched, type, value, valid, placeholder, validation, htmlType}
+              id,
+              config: {
+                touched,
+                type,
+                value,
+                valid,
+                placeholder,
+                validation,
+                htmlType,
+              },
             } = field;
             return (
               <Fragment key={id}>
@@ -100,10 +138,10 @@ function Form(props) {
                   touched={touched}
                   invalid={!valid}
                   id={id}
-                    value={value}
+                  value={value}
                   onChange={onChange}
                   placeholder={placeholder}
-                  isRequired={validation.required === true}
+                  isRequired={validation?.required ? true : false}
                 />
               </Fragment>
             );
@@ -115,7 +153,13 @@ function Form(props) {
                 const { type, text, onClick, buttonType } = button;
                 return (
                   <Fragment key={text}>
-                    <Button type={type} onClick={onClick} disabled={!isFormValid} buttonType={buttonType} buttonTypeClasses={buttonTypeClasses}>
+                    <Button
+                      type={type}
+                      onClick={onClick}
+                      disabled={!isFormValid}
+                      buttonType={buttonType}
+                      buttonTypeClasses={buttonTypeClasses}
+                    >
                       {text}
                     </Button>
                   </Fragment>
@@ -134,9 +178,9 @@ export default Form;
 // const { formFields, buttons, headerData, onSubmit, extFormData = {}, buttonTypeClasses } = props;
 
 Form.propTypes = {
-  formFields: PropTypes.arrayOf(PropTypes.object),
+  formFields: PropTypes.objectOf(PropTypes.object),
   buttons: PropTypes.arrayOf(PropTypes.object),
   headerData: PropTypes.arrayOf(PropTypes.object),
   onSubmit: PropTypes.func,
-  buttonTypeClasses: PropTypes.object
-}
+  buttonTypeClasses: PropTypes.object,
+};

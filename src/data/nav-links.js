@@ -1,7 +1,7 @@
 export const links = [
     {
         text: 'Sign In',
-        route: '/signin'
+        route: '/auth'
     },
     {
         text: 'Shop',
