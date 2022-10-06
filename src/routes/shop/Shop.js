@@ -1,20 +1,35 @@
 import { useContext } from 'react';
 
 import { ProductContext } from 'contexts/product.context';
-import ShopCategory from './ShopCategory';
+import CardContainer from 'components/card-container/CardContainer';
 
 function Shop() {
   const { products } = useContext(ProductContext);
 
-  console.log(products);
   return (
     <div>
       {products &&
         products.map((productCategory) => {
+          for (let i = 0; i < productCategory.items.length; i++) {
+            productCategory.items[i]['footer'] = {
+              value1: productCategory.items[i].name,
+              value2: `${productCategory.items[i].price} ${
+                productCategory.items[i].currency
+                  ? productCategory.items[i].currency
+                  : ''
+              }`,
+            };
+            productCategory.items[i]['overlay'] = {
+              subText: 'Add to Cart'
+            }
+          }
+          console.log(productCategory)
           return (
-            <ShopCategory
+            <CardContainer
               key={productCategory.title}
-              productCategory={productCategory}
+              title={productCategory.title}
+              cards={productCategory.items}
+              grid='true'
             />
           );
         })}

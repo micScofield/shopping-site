@@ -1,15 +1,11 @@
 import PropTypes from 'prop-types';
 
 import 'components/card/card.styles.scss';
-import { Fragment } from 'react';
 
 const Card = ({ cardData }) => {
-  let { imageUrl, title, subText, footer } = cardData;
+  let { imageUrl, footer, overlay: { title, subText } } = cardData;
 
-  // footer = {
-  //   value1: 'test',
-  //   value2: 'test',
-  // };
+  // todo : A size prop for image setting height dynamically eg: medium, large
 
   return (
     <>
@@ -28,13 +24,14 @@ const Card = ({ cardData }) => {
             {subText && <p>{subText}</p>}
           </div>
         )}
+
+        {footer && (
+          <div className='footer'>
+            <span className='value1'>{footer.value1}</span>
+            <span className='value2'>{footer.value2}</span>
+          </div>
+        )}
       </div>
-      {footer && (
-        <div className='footer'>
-          <span className='value1'>{footer.value1}</span>
-          <span className='value2'>{footer.value2}</span>
-        </div>
-      )}
     </>
   );
 };
@@ -42,8 +39,8 @@ const Card = ({ cardData }) => {
 Card.propTypes = {
   cardData: PropTypes.shape({
     imageUrl: PropTypes.string,
-    title: PropTypes.string,
-    subText: PropTypes.string,
+    footer: PropTypes.object,
+    overlay: PropTypes.object
   }),
 };
 

@@ -1,21 +1,29 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Card from 'components/card/Card';
-import 'components/card-container/card-container.styles.scss'
+import 'components/card-container/card-container.styles.scss';
 
-function CardContainer({cards}) {
+function CardContainer({ title, cards, grid }) {
+  // determine class
+  let cardContainerClassName = grid
+    ? 'card-container-grid'
+    : 'card-container-flex';
+
   return (
-    <div className='card-container-flex'>
-      {cards.length !== 0 && cards.map((card) => (
-        <Card key={card.id} cardData={card} />
-      ))}
-    </div>
-  )
+    <>
+      { title && <h2>{title}</h2> }
+      <div className={cardContainerClassName}>
+        {cards.length !== 0 &&
+          cards.map((card) => <Card key={card.id} cardData={card} />)}
+      </div>
+    </>
+  );
 }
 
 CardContainer.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.object).isRequired
+  cards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string,
 };
 
-export default CardContainer
+export default CardContainer;
