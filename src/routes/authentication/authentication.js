@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-
 import Form from 'components/form/Form';
 import './authentication.styles.scss';
 import { BUTTON_TYPE_CLASSES } from 'common/constants';
@@ -20,15 +18,11 @@ import {
   signUpFormFields,
   signUpFormHeaderData,
 } from 'routes/authentication/formInfo/signUp';
-import { UserContext } from 'contexts/user.context';
 
 const Authentication = () => {
-  const { setCurrentUser } = useContext(UserContext);
-
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
     await createUserDocumentFromAuth(user);
-    setCurrentUser(user)
   }
 
   for (let i in signInFormButtons) {
@@ -42,11 +36,8 @@ const Authentication = () => {
     console.log('onSubmitHandler', payload, resetFormFields);
     const { email, password } = payload;
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-      // resetFormFields();
-
-      // set the user in context
-      setCurrentUser(user)
+      await signInAuthUserWithEmailAndPassword(email, password);
+      resetFormFields();
     } catch (error) {
       console.log(error.code.split('/')[1]);
     }
@@ -71,9 +62,6 @@ const Authentication = () => {
 
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
-
-      // set the user in context
-      setCurrentUser(user)
     } catch (error) {
       console.log(error.code.split('/')[1]);
     }
