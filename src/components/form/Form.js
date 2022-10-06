@@ -31,6 +31,7 @@ function Form(props) {
       for (let i in extFormData) {
         extFormFields[i].value = extFormData[i];
       }
+      console.log('shouldn\'t be here if not passing the form data explicitly')
       setActionForm(extFormFields);
     }
   }, [extFormData, actionForm]);
@@ -130,6 +131,7 @@ function Form(props) {
                 htmlType,
               },
             } = field;
+            console.log({value: value, placeholder: placeholder})
             return (
               <Fragment key={id}>
                 <FormInput
