@@ -13,32 +13,43 @@ function Shop() {
     addItemToCart({ id, imageUrl, name, price });
   };
 
-  const formattedProducts = products && products.map((productCategory) => {
-    for (let i = 0; i < productCategory.items.length; i++) {
-      productCategory.items[i]['footer'] = {
-        value1: productCategory.items[i].name,
-        value2: productCategory.items[i].price,
-      };
-      productCategory.items[i]['overlay'] = ['Add to Cart'];
-      productCategory.items[i]['onOverlayClick'] = onOverlayClickHandler;
-      productCategory.items[i]['overlayPosition'] = 'bottom';
-      productCategory.items[i]['showOverlayByDefault'] = false;
-      productCategory.items[i]['disableImageTransition'] = true;
-    }
-    return productCategory
-  });
+  const formattedProducts =
+    products &&
+    Object.keys(products).map((productCategory) => {
+      let res = {};
+      for (let i = 0; i < products[productCategory].length; i++) {
+        products[productCategory][i]['footer'] = {
+          value1: products[productCategory][i].name,
+          value2: products[productCategory][i].price,
+        };
+        products[productCategory][i]['overlay'] = ['Add to Cart'];
+        products[productCategory][i]['onOverlayClick'] = onOverlayClickHandler;
+        products[productCategory][i]['overlayPosition'] = 'bottom';
+        products[productCategory][i]['showOverlayByDefault'] = false;
+        products[productCategory][i]['disableImageTransition'] = true;
+      }
+      res[productCategory] = products[productCategory];
+      return res;
+    });
+
+  const res =
+    formattedProducts &&
+    formattedProducts.reduce((acc, product) => {
+      for (let i in product) acc[i] = product[i];
+      return acc;
+    }, {});
 
   return (
     <div>
-      {formattedProducts &&
-        formattedProducts.length !== 0 &&
-        products.map((productCategory) => (
+      {res &&
+        Object.keys(res).length !== 0 &&
+        Object.keys(res).map((productCategory) => (
           <CardContainer
-            key={productCategory.title}
-            title={productCategory.title}
-            cards={productCategory.items}
-            grid='true'
-            large='true'
+            key={productCategory}
+            title={productCategory}
+            cards={res[productCategory]}
+            grid={true}
+            large={true}
           />
         ))}
     </div>

@@ -72,7 +72,7 @@ Card.propTypes = {
     imageUrl: PropTypes.string,
     footer: PropTypes.shape({
       value1: PropTypes.string,
-      value2: PropTypes.string,
+      value2: PropTypes.number,
     }),
     overlay: PropTypes.arrayOf(PropTypes.string),
     overlayPosition: PropTypes.string,
