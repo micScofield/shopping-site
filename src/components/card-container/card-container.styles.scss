@@ -7,6 +7,16 @@
 .card-container-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  column-gap: 20px;
+  column-gap: 12px;
   row-gap: 50px;
+}
+.card-container-title {
+  cursor: pointer;
+}
+.card-container-title-position-left {
+  font-size: 32px;
+}
+.card-container-title-position-center {
+  font-size: 32px;
+  text-align: center;
 }

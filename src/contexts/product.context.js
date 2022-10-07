@@ -20,7 +20,6 @@ export const ProductProvider = ({ children }) => {
   useEffect(() => {
     const getCategories = async () => {
       const response = await getCategoriesAndDocuments();
-      console.log(response)
       setProducts(response);
     };
 

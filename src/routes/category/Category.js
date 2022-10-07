@@ -3,12 +3,14 @@ import { useContext } from 'react';
 import CardContainer from 'components/card-container/CardContainer';
 import { ProductContext } from 'contexts/product.context';
 import { CartContext } from 'contexts/cart.context';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-function Shop() {
+function Category() {
   const { products } = useContext(ProductContext);
   const { addItemToCart } = useContext(CartContext);
-  const navigate = useNavigate()
+
+  // identify product category from the URL
+  const { category } = useParams();
 
   const onOverlayClickHandler = (e, payload) => {
     const { id, imageUrl, name, price } = payload;
@@ -41,26 +43,24 @@ function Shop() {
       return acc;
     }, {});
 
-    const onTitleClickHandler = (route) => navigate(`/shop/${route}`)
-
   return (
     <div>
-      {/* On the shop landing page, we want limited products to list, hence slicing the products array */}
       {res &&
         Object.keys(res).length !== 0 &&
-        Object.keys(res).map((productCategory) => (
-          <CardContainer
-            key={productCategory}
-            title={productCategory}
-            titlePosition='left'
-            onTitleClick={() => onTitleClickHandler(productCategory)}
-            cards={res[productCategory].slice(0, 4)}
-            grid={true}
-            large={true}
-          />
-        ))}
+        Object.keys(res).map((productCategory) => {
+          if (productCategory === category)
+            return (
+              <CardContainer
+                key={productCategory}
+                title={productCategory}
+                cards={res[productCategory]}
+                grid={true}
+                large={true}
+              />
+            );
+        })}
     </div>
   );
 }
 
-export default Shop;
+export default Category;
