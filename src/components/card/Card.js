@@ -6,18 +6,29 @@ import 'components/card/card.styles.scss';
 Overlay supports upto 2 values
 */
 
-const Card = ({ cardData }) => {
-  let { imageUrl, footer, overlay, overlayPosition, onOverlayClick } = cardData;
-
-  // todo : A size prop for image setting height dynamically eg: medium, large
+const Card = ({ cardData, large }) => {
+  let {
+    imageUrl,
+    footer,
+    overlay,
+    overlayPosition,
+    onOverlayClick,
+    showOverlayByDefault,
+  } = cardData;
 
   if (!onOverlayClick) {
-    onOverlayClick = () => {}
+    onOverlayClick = () => {};
   }
+
+  // Determining CSS classes for card container
+  let cardContainerCssClasses = ['card-body-container'];
+  if (overlay.length < 2) cardContainerCssClasses.push('small');
+  if (overlayPosition === 'bottom') cardContainerCssClasses.push('bottom');
+  if (!showOverlayByDefault) cardContainerCssClasses.push('showOverlayOnHover');
 
   return (
     <>
-      <div className='card-wrapper'>
+      <div className={`card-wrapper ${large ? 'large' : ''}`}>
         {imageUrl && (
           <div
             className='background-image'
@@ -29,13 +40,11 @@ const Card = ({ cardData }) => {
 
         {overlay && (
           <div
-            className={`card-body-container ${
-              overlay.length > 1 ? '' : 'small'
-            } ${overlayPosition === 'bottom' ? 'bottom' : ''}`}
+            className={cardContainerCssClasses.join(' ')}
             onClick={(e) => onOverlayClick(e, cardData)}
           >
             {overlay[0] && <h2>{overlay[0]}</h2>}
-            {overlay[1] && <p>{overlay[0]}</p>}
+            {overlay[1] && <p>{overlay[1]}</p>}
           </div>
         )}
 

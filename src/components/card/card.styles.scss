@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
+  // border: 1px solid black;
   margin: 0 7.5px 15px;
   overflow: hidden;
   flex-direction: column;
@@ -25,6 +25,7 @@
 
   &.large {
     height: 380px;
+    margin: 0 15px 25px;
   }
 
   &:first-child {
@@ -45,7 +46,7 @@
   .card-body-container {
     height: 90px;
     padding: 0 25px;
-    display: flex;
+    display: flex; // displaying card container by default. Additional prop showOverlayOnHover determines if we want to only show this on hover
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -67,6 +68,9 @@
     }
   }
 
+  .showOverlayOnHover {
+  }
+
   // card body container size
   .small {
     height: 45px;
@@ -77,9 +81,10 @@
     }
   }
 
-  // overlay position
+  // overlay position: bottom: slightly down in the card and increased width
   .bottom {
-    margin-top: 5%;
+    margin-top: 12%;
+    min-width: 15%;
   }
 
   // card footer
@@ -94,7 +99,7 @@
       width: 90%;
       margin-bottom: 15px;
     }
-  
+
     .value2 {
       width: 10%;
     }

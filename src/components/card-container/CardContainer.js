@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Card from 'components/card/Card';
 import 'components/card-container/card-container.styles.scss';
 
-function CardContainer({ title, cards, grid }) {
+function CardContainer({ title, cards, grid, large }) {
   // determine class
   let cardContainerClassName = grid
     ? 'card-container-grid'
@@ -15,7 +15,7 @@ function CardContainer({ title, cards, grid }) {
       { title && <h2>{title}</h2> }
       <div className={cardContainerClassName}>
         {cards.length !== 0 &&
-          cards.map((card) => <Card key={card.id} cardData={card} />)}
+          cards.map((card) => <Card key={card.id} cardData={card} large={large} />)}
       </div>
     </>
   );

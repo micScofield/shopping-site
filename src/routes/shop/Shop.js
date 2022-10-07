@@ -29,6 +29,7 @@ function Shop() {
             productCategory.items[i]['overlay'] = ['Add to Cart'];
             productCategory.items[i]['onOverlayClick'] = onOverlayClickHandler;
             productCategory.items[i]['overlayPosition'] = 'bottom';
+            productCategory.items[i]['showOverlayByDefault'] = false;
           }
           return (
             <CardContainer
@@ -36,6 +37,7 @@ function Shop() {
               title={productCategory.title}
               cards={productCategory.items}
               grid='true'
+              large='true' 
             />
           );
         })}
