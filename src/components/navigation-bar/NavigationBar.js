@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import 'components/navigation-bar/navigation.styles.scss';
 import NavTab from './NavTab';
 
-function NavigationBar({ Logo, links }) {
+// supports only one on hover modal 
+
+function NavigationBar({ Logo, links, children }) {
   return (
     <div className='navigation'>
       {Logo && (
@@ -20,12 +22,17 @@ function NavigationBar({ Logo, links }) {
             if (link.show) {
               return (
                 <Fragment key={link.id}>
-                  <NavTab navTab={link} />
+                  <NavTab navTab={link}>
+                    {children}
+                  </NavTab>
                 </Fragment>
               );
             } else return null;
           })}
       </div>
+
+      {/* Meant to be a conditional modal. Only one supported */}
+      { children && children.length !== 0 && children[children.length-1] } 
     </div>
   );
 }

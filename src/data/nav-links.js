@@ -20,6 +20,7 @@ export const links = [
     },
     {
         route: '/cart',
+        text: 'Cart',
         show: true,
         isIcon: true,
         IconComponent: 'CartIcon'

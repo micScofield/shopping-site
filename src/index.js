@@ -6,6 +6,7 @@ import { ProductProvider } from 'contexts/product.context';
 
 import 'index.scss';
 import App from 'App';
+import { CartProvider } from 'contexts/cart.context';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <BrowserRouter>
       <UserProvider>
         <ProductProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </ProductProvider>
       </UserProvider>
     </BrowserRouter>

@@ -5,6 +5,7 @@ import Home from 'routes/home/Home';
 import Navigation from 'routes/navigation/Navigation';
 import Authentication from 'routes/authentication/Authentication';
 import Shop from 'routes/shop/Shop';
+import Checkout from 'routes/checkout/Checkout';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path='/auth' element={<Authentication />} />
         <Route path='/shop' element={<Shop />} />
+        <Route path='/checkout' element={<Checkout />} />
         <Route path='/' element={<Home />} />
       </Routes>
     </Fragment>

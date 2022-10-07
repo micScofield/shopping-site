@@ -1,18 +1,24 @@
 import React from 'react';
 
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function NavTab({ navTab }) {
-  const { route, text, onClick, isIcon, IconComponent } = navTab;
-  console.log(IconComponent && IconComponent)
-  if (isIcon) return <IconComponent />
+function NavTab({ navTab, children }) {
+  const { route, text, onClick, isIcon } = navTab;
 
-  if (text === 'Sign Out') return (
-    <Link className='nav-link' onClick={onClick}>
-      {text}
-    </Link>
-  );
+  if (isIcon)
+    return (
+      <Link className='nav-link' onClick={onClick}>
+        {children[0]}
+      </Link>
+    );
+
+  if (text === 'Sign Out')
+    return (
+      <Link className='nav-link' onClick={onClick}>
+        {text}
+      </Link>
+    );
 
   return (
     <Link className='nav-link' to={`${route}`}>
@@ -22,10 +28,10 @@ function NavTab({ navTab }) {
 }
 
 NavTab.propTypes = {
-    navTab: PropTypes.shape({
-        route: PropTypes.string,
-        text: PropTypes.string
-    })
-  };
+  navTab: PropTypes.shape({
+    route: PropTypes.string,
+    text: PropTypes.string,
+  }),
+};
 
 export default NavTab;
