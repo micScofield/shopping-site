@@ -14,11 +14,17 @@ const Card = ({ cardData, large }) => {
     overlayPosition,
     onOverlayClick,
     showOverlayByDefault,
+    disableImageTransition
   } = cardData;
 
   if (!onOverlayClick) {
     onOverlayClick = () => {};
   }
+
+  // Determining CSS classes for card wrapper
+  let cardWrapperCssClasses = ['card-wrapper']
+  if (disableImageTransition) cardWrapperCssClasses.push('disableImageTransition')
+  if (large) cardWrapperCssClasses.push('large')
 
   // Determining CSS classes for card container
   let cardContainerCssClasses = [];
@@ -30,7 +36,7 @@ const Card = ({ cardData, large }) => {
 
   return (
     <>
-      <div className={`card-wrapper ${large ? 'large' : ''}`}>
+      <div className={cardWrapperCssClasses.join(' ')}>
         {imageUrl && (
           <div
             className='background-image'
@@ -73,6 +79,7 @@ Card.propTypes = {
     showOverlayByDefault: PropTypes.bool,
   }),
   large: PropTypes.bool,
+  disableImageTransition: PropTypes.bool,
 };
 
 export default Card;

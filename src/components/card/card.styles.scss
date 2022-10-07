@@ -41,6 +41,24 @@
     }
   }
 
+  &.disableImageTransition {
+    &:hover {
+      & .background-image {
+        transform: scale(1);
+      }
+    }
+  }
+
+  &.test {
+    & .card-wrapper {
+      &:hover {
+        & .background-image {
+          transform: scale(0.6);
+        }
+      }
+    }
+  }
+
   &.large {
     height: 380px;
     margin: 0 15px 25px;

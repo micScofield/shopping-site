@@ -23,6 +23,7 @@ function Shop() {
       productCategory.items[i]['onOverlayClick'] = onOverlayClickHandler;
       productCategory.items[i]['overlayPosition'] = 'bottom';
       productCategory.items[i]['showOverlayByDefault'] = false;
+      productCategory.items[i]['disableImageTransition'] = true;
     }
     return productCategory
   });
