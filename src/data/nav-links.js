@@ -17,5 +17,11 @@ export const links = [
         route: '/signout',
         show: true,
         onClick: () => {}
+    },
+    {
+        route: '/cart',
+        show: true,
+        isIcon: true,
+        IconComponent: 'CartIcon'
     }
 ]

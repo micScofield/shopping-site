@@ -2,8 +2,12 @@ import PropTypes from 'prop-types';
 
 import 'components/card/card.styles.scss';
 
+/*
+Overlay supports upto 2 values
+*/
+
 const Card = ({ cardData }) => {
-  let { imageUrl, footer, overlay: { title, subText } } = cardData;
+  let { imageUrl, footer, overlay, overlayPosition } = cardData;
 
   // todo : A size prop for image setting height dynamically eg: medium, large
 
@@ -18,10 +22,11 @@ const Card = ({ cardData }) => {
             }}
           />
         )}
-        {(title || subText) && (
-          <div className='card-body-container'>
-            {title && <h2>{title}</h2>}
-            {subText && <p>{subText}</p>}
+
+        {overlay && (
+          <div className={`card-body-container ${overlay.length > 1 ? '' : 'small'} ${overlayPosition === 'bottom' ? 'bottom' : ''}`}>
+            {overlay[0] && <h2>{overlay[0]}</h2>}
+            {overlay[1] && <p>{overlay[0]}</p>}
           </div>
         )}
 
@@ -40,7 +45,7 @@ Card.propTypes = {
   cardData: PropTypes.shape({
     imageUrl: PropTypes.string,
     footer: PropTypes.object,
-    overlay: PropTypes.object
+    overlay: PropTypes.arrayOf(PropTypes.string), 
   }),
 };
 

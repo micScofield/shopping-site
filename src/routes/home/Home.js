@@ -4,12 +4,9 @@ import { categories } from 'data/categories';
 
 const Home = () => {
   for (let i = 0; i < categories.length; i++) {
-    categories[i].overlay = {
-      title: categories[i].title,
-      subText: categories[i].subText,
-    };
+    categories[i].overlay = [categories[i].title, categories[i].subText];
+    categories[i].overlayPosition = 'middle';
   }
-  console.log(categories)
   return <CardContainer cards={categories} />;
 };
 

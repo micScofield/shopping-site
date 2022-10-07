@@ -19,9 +19,8 @@ function Shop() {
                   : ''
               }`,
             };
-            productCategory.items[i]['overlay'] = {
-              subText: 'Add to Cart'
-            }
+            productCategory.items[i]['overlay'] = ['Add to Cart']
+            productCategory.items[i]['overlayPosition'] = 'bottom'
           }
           console.log(productCategory)
           return (

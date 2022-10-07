@@ -4,7 +4,9 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 
 function NavTab({ navTab }) {
-  const { route, text, onClick } = navTab;
+  const { route, text, onClick, isIcon, IconComponent } = navTab;
+  console.log(IconComponent && IconComponent)
+  if (isIcon) return <IconComponent />
 
   if (text === 'Sign Out') return (
     <Link className='nav-link' onClick={onClick}>
@@ -21,8 +23,8 @@ function NavTab({ navTab }) {
 
 NavTab.propTypes = {
     navTab: PropTypes.shape({
-        route: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired
+        route: PropTypes.string,
+        text: PropTypes.string
     })
   };
 
