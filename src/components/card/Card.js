@@ -64,9 +64,15 @@ const Card = ({ cardData, large }) => {
 Card.propTypes = {
   cardData: PropTypes.shape({
     imageUrl: PropTypes.string,
-    footer: PropTypes.object,
+    footer: PropTypes.shape({
+      value1: PropTypes.string,
+      value2: PropTypes.string,
+    }),
     overlay: PropTypes.arrayOf(PropTypes.string),
+    overlayPosition: PropTypes.string,
+    showOverlayByDefault: PropTypes.bool,
   }),
+  large: PropTypes.bool,
 };
 
 export default Card;

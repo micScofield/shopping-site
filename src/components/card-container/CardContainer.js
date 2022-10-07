@@ -24,6 +24,8 @@ function CardContainer({ title, cards, grid, large }) {
 CardContainer.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.object).isRequired,
   title: PropTypes.string,
+  grid: PropTypes.bool,
+  large: PropTypes.bool
 };
 
 export default CardContainer;

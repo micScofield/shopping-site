@@ -28,8 +28,15 @@
 
       &:hover {
         background-color: black;
-        color: white;
         border: none;
+
+        & h2 {
+          color: white;
+        }
+
+        & p {
+          color: white;
+        }
       }
     }
   }

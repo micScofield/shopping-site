@@ -1,14 +1,14 @@
-import NavigationBar from 'components/navigation-bar/NavigationBar';
 import React, { useContext } from 'react';
 import { v4 } from 'uuid';
 
 import { ReactComponent as Logo } from 'assets/crown.svg';
 import { links } from 'data/nav-links';
-import { UserContext } from 'contexts/user.context';
-import { signOutUser } from 'utils/firebase/firebase.utils';
+import NavigationBar from 'components/navigation-bar/NavigationBar';
 import CartIcon from 'components/app-specific/cart/cart-icon/CartIcon';
 import CartDropdown from 'components/app-specific/cart/cart-dropdown/CartDropdown';
+import { UserContext } from 'contexts/user.context';
 import { CartContext } from 'contexts/cart.context';
+import { signOutUser } from 'utils/firebase/firebase.utils';
 
 function Navigation() {
   const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -62,7 +62,7 @@ function Navigation() {
         {icons.length !== 0 &&
           icons.map((icon) => {
             if (icon.text === 'Cart') return <CartIcon key={icon} />;
-            // if (icon.text === 'Test') return <CartIcon />
+            // if (icon.text === 'Test') return <CartIcon /> // Use this space if we have more types of icons in the icons array
             else return null;
           })}
 
