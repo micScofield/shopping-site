@@ -49,28 +49,18 @@
     }
   }
 
-  &.test {
-    & .card-wrapper {
-      &:hover {
-        & .background-image {
-          transform: scale(0.6);
-        }
-      }
-    }
-  }
-
   &.large {
     height: 380px;
-    margin: 0 15px 25px;
+    margin: 0 0 10px;
   }
 
-  &:first-child {
-    margin-right: 7.5px;
-  }
+  // &:first-child {
+    // margin-right: 7.5px;
+  // }
 
-  &:last-child {
-    margin-left: 7.5px;
-  }
+  // &:last-child {
+    // margin-left: 7.5px;
+  // }
 
   .background-image {
     width: 100%;
