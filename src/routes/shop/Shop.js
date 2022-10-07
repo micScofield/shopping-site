@@ -2,9 +2,16 @@ import { useContext } from 'react';
 
 import { ProductContext } from 'contexts/product.context';
 import CardContainer from 'components/card-container/CardContainer';
+import { CartContext } from 'contexts/cart.context';
 
 function Shop() {
   const { products } = useContext(ProductContext);
+  const { addItemToCart } = useContext(CartContext);
+
+  const onOverlayClickHandler = (e, payload) => {
+    const { id, imageUrl, name, price } = payload;
+    addItemToCart({ id, imageUrl, name, price });
+  };
 
   return (
     <div>
@@ -19,10 +26,10 @@ function Shop() {
                   : ''
               }`,
             };
-            productCategory.items[i]['overlay'] = ['Add to Cart']
-            productCategory.items[i]['overlayPosition'] = 'bottom'
+            productCategory.items[i]['overlay'] = ['Add to Cart'];
+            productCategory.items[i]['onOverlayClick'] = onOverlayClickHandler;
+            productCategory.items[i]['overlayPosition'] = 'bottom';
           }
-          console.log(productCategory)
           return (
             <CardContainer
               key={productCategory.title}

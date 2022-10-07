@@ -7,9 +7,13 @@ Overlay supports upto 2 values
 */
 
 const Card = ({ cardData }) => {
-  let { imageUrl, footer, overlay, overlayPosition } = cardData;
+  let { imageUrl, footer, overlay, overlayPosition, onOverlayClick } = cardData;
 
   // todo : A size prop for image setting height dynamically eg: medium, large
+
+  if (!onOverlayClick) {
+    onOverlayClick = () => {}
+  }
 
   return (
     <>
@@ -24,7 +28,12 @@ const Card = ({ cardData }) => {
         )}
 
         {overlay && (
-          <div className={`card-body-container ${overlay.length > 1 ? '' : 'small'} ${overlayPosition === 'bottom' ? 'bottom' : ''}`}>
+          <div
+            className={`card-body-container ${
+              overlay.length > 1 ? '' : 'small'
+            } ${overlayPosition === 'bottom' ? 'bottom' : ''}`}
+            onClick={(e) => onOverlayClick(e, cardData)}
+          >
             {overlay[0] && <h2>{overlay[0]}</h2>}
             {overlay[1] && <p>{overlay[0]}</p>}
           </div>
@@ -45,7 +54,7 @@ Card.propTypes = {
   cardData: PropTypes.shape({
     imageUrl: PropTypes.string,
     footer: PropTypes.object,
-    overlay: PropTypes.arrayOf(PropTypes.string), 
+    overlay: PropTypes.arrayOf(PropTypes.string),
   }),
 };
 
