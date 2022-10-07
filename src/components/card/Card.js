@@ -21,10 +21,12 @@ const Card = ({ cardData, large }) => {
   }
 
   // Determining CSS classes for card container
-  let cardContainerCssClasses = ['card-body-container'];
+  let cardContainerCssClasses = [];
+  if (showOverlayByDefault)
+    cardContainerCssClasses.push('card-body-container-with-overlay');
+  else cardContainerCssClasses.push('card-body-container-without-overlay');
   if (overlay.length < 2) cardContainerCssClasses.push('small');
   if (overlayPosition === 'bottom') cardContainerCssClasses.push('bottom');
-  if (!showOverlayByDefault) cardContainerCssClasses.push('showOverlayOnHover');
 
   return (
     <>
