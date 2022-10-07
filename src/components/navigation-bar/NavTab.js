@@ -32,7 +32,7 @@ NavTab.propTypes = {
     route: PropTypes.string,
     text: PropTypes.string,
   }),
-  children: PropTypes.element
+  children: PropTypes.array
 };
 
 export default NavTab;

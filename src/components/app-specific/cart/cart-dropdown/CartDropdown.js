@@ -24,7 +24,7 @@ const CartDropdown = () => {
           <h2>No items added yet !</h2>
         )}
       </div>
-      <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
+      <Button onClick={goToCheckoutHandler}>CHECKOUT</Button>
     </div>
   );
 };

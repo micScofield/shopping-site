@@ -40,7 +40,7 @@ function NavigationBar({ Logo, links, children }) {
 NavigationBar.propTypes = {
   Logo: PropTypes.any,
   links: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.element
+  children: PropTypes.array
 };
 
 export default NavigationBar;
