@@ -91,7 +91,7 @@ function Form(props) {
   }
 
   return (
-    <div className='sign-in-container'>
+    <div className='form-container'>
       {headerData &&
         headerData.map((element) => {
           const { text, type } = element;
